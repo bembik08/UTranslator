@@ -8,8 +8,8 @@ import dagger.android.DaggerApplication
 class App : DaggerApplication() {
     override fun applicationInjector(): AndroidInjector<App> =
         DaggerApplicationComponent
-            .builder().apply {
-                withContext(applicationContext)
-                withSchedulers(SchedulersImpl())
-            }.build()
+                .builder().apply {
+                    withContext(applicationContext)
+                    withSchedulers(SchedulersImpl())
+                }.build()
 }
