@@ -2,38 +2,21 @@ package com.professional.viewmodels.interactions
 
 import com.professional.models.AppState
 import com.professional.models.repository.Repository
-import com.professional.rxschedulers.Schedulers
 import com.professional.utils.NetworkStatus
-import io.reactivex.rxjava3.core.Single
-import javax.inject.Inject
 
-class MainInteraction @Inject constructor(
+class MainInteraction(
     private val repo: Repository,
-    private val schedulers: Schedulers,
     private val networkStatus: NetworkStatus
 ) : Interaction {
-    override fun getData(word: String): Single<out AppState> =
-        networkStatus
-            .onLineSingle()
-            .flatMap { isOnline ->
-                if (isOnline) {
-                    repo
-                        .getData(word)
-                        .map {
-                            AppState.Success(it)
-                        }
-                } else {
-                    Single.fromCallable {
-                        AppState.Error(
-                            Throwable(ERROR_MSG)
-                        )
-                    }
-                }
-            }
-            .subscribeOn(schedulers.io())
+    override suspend fun getData(word: String): AppState {
+        return if (networkStatus.isOnline()) {
+            AppState.Success(repo.getData(word))
+        } else {
+            AppState.Error(Throwable(ERROR_MSG))
+        }
+    }
 
     companion object {
         private const val ERROR_MSG = "Error Internet connection"
     }
 }
-
