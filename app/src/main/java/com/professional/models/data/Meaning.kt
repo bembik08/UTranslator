@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Meaning(
     @SerializedName("id")
-    val id: Int,
+    val meaningId: Int,
     @SerializedName("imageUrl")
     val imageUrl: String,
     @SerializedName("partOfSpeechCode")
