@@ -1,11 +1,10 @@
 package com.professional.ui.mainfragment
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.professional.databinding.ItemTranslateLayoutBinding
-import com.professional.models.data.TranslationDataItem
+import com.test_app.model.data.TranslationDataItem
 
 class Adapter(
     private val data: List<TranslationDataItem>,

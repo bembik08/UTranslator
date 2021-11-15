@@ -2,7 +2,7 @@ package com.professional.di.koin
 
 import com.google.gson.GsonBuilder
 import com.professional.BuildConfig
-import com.professional.models.cloud.api.ServiceApi
+import com.test_app.repository.cloud.api.ServiceApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

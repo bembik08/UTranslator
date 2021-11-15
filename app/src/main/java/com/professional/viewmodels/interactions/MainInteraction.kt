@@ -1,9 +1,10 @@
 package com.professional.viewmodels.interactions
 
-import com.professional.models.AppState
-import com.professional.models.data.TranslationDataItem
-import com.professional.models.repository.Repository
-import com.professional.utils.NetworkStatus
+import com.test_app.core.interaction.Interaction
+import com.test_app.model.AppState
+import com.test_app.model.data.TranslationDataItem
+import com.test_app.repository.Repository
+import com.test_app.utils.NetworkStatus
 
 class MainInteraction(
     private val repo: Repository,
@@ -24,7 +25,6 @@ class MainInteraction(
 
     override suspend fun saveToFavorite(item: TranslationDataItem) =
         repo.insertFavorite(item)
-
 
     companion object {
         private const val ERROR_MSG = "Error Internet connection"
