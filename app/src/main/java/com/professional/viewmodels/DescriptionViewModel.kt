@@ -1,28 +1,20 @@
 package com.professional.viewmodels
 
 import com.professional.models.AppState
-import com.professional.models.data.TranslationDataItem
 import com.professional.viewmodels.base.BaseViewModel
 import com.professional.viewmodels.interactions.Interaction
 import kotlinx.coroutines.launch
 
-class MainViewModel(
-    private val interaction: Interaction,
+class DescriptionViewModel(
+    private val interaction: Interaction
 ) : BaseViewModel() {
     override fun handleError(throwable: Throwable) {
         customLiveData.postValue(AppState.Error(throwable))
     }
 
-    override  fun getData(word: String) {
-        customLiveData.value = AppState.Loading
+    override fun getData(word: String) {
         viewModelScopeCoroutine.launch {
             customLiveData.postValue(interaction.getData(word))
-        }
-    }
-
-    fun saveToFavorite(item : TranslationDataItem){
-        viewModelScopeCoroutine.launch {
-            interaction.saveToFavorite(item)
         }
     }
 }
