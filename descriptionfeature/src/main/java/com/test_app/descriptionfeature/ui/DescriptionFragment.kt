@@ -7,22 +7,26 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.test_app.model.AppState
-import com.test_app.model.data.TranslationDataItem
 import com.test_app.core.baseui.BaseFragment
 import com.test_app.descriptionfeature.databinding.DescriptionFragmentBinding
 import com.test_app.descriptionfeature.viewmodel.DescriptionViewModel
-import org.koin.android.ext.android.inject
+import com.test_app.model.AppState
+import com.test_app.model.data.TranslationDataItem
+import org.koin.android.scope.AndroidScopeComponent
+import org.koin.androidx.scope.fragmentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
 
-class DescriptionFragment : BaseFragment() {
-    private val viewBinding: DescriptionFragmentBinding by viewBinding(CreateMethod.INFLATE)
+class DescriptionFragment : BaseFragment(), AndroidScopeComponent {
+    override val scope: Scope by fragmentScope()
+    override val viewModel : DescriptionViewModel by viewModel(named<DescriptionViewModel>())
+
     private val word by lazy {
         arguments?.getString(ARG_STRING)
     }
 
-    override val viewModel : DescriptionViewModel by viewModel(named<DescriptionViewModel>())
+    private val viewBinding: DescriptionFragmentBinding by viewBinding(CreateMethod.INFLATE)
 
     override fun renderData(appState: AppState) {
         when (appState) {
@@ -58,7 +62,6 @@ class DescriptionFragment : BaseFragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         word?.let { viewModel.getData(it) }
     }
-
 
     companion object {
         private const val ARG_STRING = "arg_string"

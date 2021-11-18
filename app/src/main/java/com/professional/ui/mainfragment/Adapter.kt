@@ -3,8 +3,11 @@ package com.professional.ui.mainfragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textview.MaterialTextView
+import com.professional.R
 import com.professional.databinding.ItemTranslateLayoutBinding
 import com.test_app.model.data.TranslationDataItem
+import com.test_app.utils.views.getViewById
 
 class Adapter(
     private val data: List<TranslationDataItem>,
@@ -28,8 +31,9 @@ class Adapter(
     inner class ItemHolder(
         private val binding: ItemTranslateLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        private val engTextView by getViewById<MaterialTextView>(R.id.eng_text)
         fun bind(dataItem: TranslationDataItem) = with(binding) {
-            engText.text = dataItem.text
+            engTextView.text = dataItem.text
             transcription.text = dataItem.meanings.first().transcription
             translationText.text = dataItem.meanings.joinToString {
                 it.translation.text
@@ -43,8 +47,8 @@ class Adapter(
         }
     }
 
-    interface OnItemClick{
-        fun changeFrg(word : String)
+    interface OnItemClick {
+        fun changeFrg(word: String)
         fun saveToFavorite(dataItem: TranslationDataItem)
     }
 }

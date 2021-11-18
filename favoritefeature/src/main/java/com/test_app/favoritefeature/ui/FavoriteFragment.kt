@@ -9,11 +9,14 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.test_app.core.baseui.BaseFragment
 import com.test_app.favoritefeature.databinding.FavoriteFragmentBinding
 import com.test_app.favoritefeature.viewmodel.FavoriteViewModel
-import org.koin.android.ext.android.inject
+import org.koin.android.scope.AndroidScopeComponent
+import org.koin.androidx.scope.fragmentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
 
-class FavoriteFragment : BaseFragment() {
+class FavoriteFragment : BaseFragment(), AndroidScopeComponent {
+    override val scope: Scope by fragmentScope()
     override val viewModel: FavoriteViewModel by viewModel(named<FavoriteViewModel>())
     private val viewBinding: FavoriteFragmentBinding by viewBinding(CreateMethod.INFLATE)
 
