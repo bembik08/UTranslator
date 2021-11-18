@@ -11,12 +11,17 @@ import com.google.android.material.snackbar.Snackbar
 import com.test_app.historyfeature.databinding.HistoryFragmentBinding
 import com.test_app.historyfeature.viewmodel.HistoryViewModel
 import com.test_app.model.AppState
+import org.koin.android.scope.AndroidScopeComponent
+import org.koin.androidx.scope.fragmentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
 
-class HistoryFragment : BottomSheetDialogFragment() {
+class HistoryFragment : BottomSheetDialogFragment(), AndroidScopeComponent {
+    override val scope: Scope by fragmentScope()
     private val viewBinding: HistoryFragmentBinding by viewBinding(CreateMethod.INFLATE)
     private val viewModel: HistoryViewModel by viewModel(named<HistoryViewModel>())
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,9 +46,7 @@ class HistoryFragment : BottomSheetDialogFragment() {
                     .show()
             }
         }
-
     }
-
 
     companion object {
         fun newInstance() = HistoryFragment()
