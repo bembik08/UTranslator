@@ -64,6 +64,8 @@ class MainFragment : BaseFragment(), AndroidScopeComponent {
                     .make(viewBinding.root, it, Snackbar.LENGTH_LONG)
                     .show()
             }
+            is AppState.SuccessDescription -> TODO()
+            is AppState.SuccessFavorite -> TODO()
         }
     }
 

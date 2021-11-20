@@ -20,7 +20,7 @@ import org.koin.core.scope.Scope
 
 class DescriptionFragment : BaseFragment(), AndroidScopeComponent {
     override val scope: Scope by fragmentScope()
-    override val viewModel : DescriptionViewModel by viewModel(named<DescriptionViewModel>())
+    override val viewModel: DescriptionViewModel by viewModel(named<DescriptionViewModel>())
 
     private val word by lazy {
         arguments?.getString(ARG_STRING)
@@ -36,7 +36,7 @@ class DescriptionFragment : BaseFragment(), AndroidScopeComponent {
         }
     }
 
-    private fun initData(data: TranslationDataItem)= with(viewBinding) {
+    private fun initData(data: TranslationDataItem) = with(viewBinding) {
         title.text = data.text
         transcription.text = data.meanings.joinToString {
             it.transcription
@@ -47,7 +47,13 @@ class DescriptionFragment : BaseFragment(), AndroidScopeComponent {
         translationNote.text = data.meanings.joinToString {
             it.translation.note
         }
-        imageLoader.load("https:${data.meanings.first().imageUrl}", imgWord)
+        progressCircular.visibility = View.VISIBLE
+        imageLoader.load(
+            url = "https:${data.meanings.first().imageUrl}",
+            imageView = imgWord,
+            root = viewBinding.root,
+            progressBar = progressCircular
+        )
     }
 
     override fun onCreateView(
