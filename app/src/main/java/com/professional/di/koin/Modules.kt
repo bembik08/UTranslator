@@ -29,6 +29,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+
 private const val MAIN_INTERACTION = "main interaction"
 val applicationModule = module {
     single<NetworkStatus>(named<NetworkStatus>()) {
